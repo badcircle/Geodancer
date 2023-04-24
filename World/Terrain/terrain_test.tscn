@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://b44ftjxr8prkn"]
+
+[ext_resource type="Script" path="res://World/Terrain/generator.gd" id="1_v3fax"]
+[ext_resource type="PackedScene" uid="uid://ca0x4mrwaebc" path="res://World/Terrain/chunk.tscn" id="2_q38mf"]
+[ext_resource type="PackedScene" uid="uid://dhe34p27siqxm" path="res://World/Terrain/viewer.tscn" id="3_oob5r"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p6oc3"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_4w0it"]
+sky_material = SubResource("ProceduralSkyMaterial_p6oc3")
+
+[sub_resource type="Environment" id="Environment_m2ep2"]
+background_mode = 2
+sky = SubResource("Sky_4w0it")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_kdd3o"]
+noise_type = 3
+frequency = 0.005
+fractal_octaves = 2
+fractal_weighted_strength = 0.5
+domain_warp_type = 2
+domain_warp_amplitude = 7.0
+
+[node name="World" type="Node3D"]
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Env" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_m2ep2")
+
+[node name="Player" parent="." instance=ExtResource("3_oob5r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 36, 0)
+
+[node name="Terrain" type="Node3D" parent="." node_paths=PackedStringArray("viewer")]
+script = ExtResource("1_v3fax")
+chunkSize = 400
+terrain_height = 35
+view_distance = 801
+viewer = NodePath("../Player")
+chunk_mesh_scene = ExtResource("2_q38mf")
+noise = SubResource("FastNoiseLite_kdd3o")

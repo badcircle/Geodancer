@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://h3xawqapscwc"
+path="res://.godot/imported/Staircase.obj-07fccf9db3a2d3a83b8fea563e8210de.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Staircase.obj-07fccf9db3a2d3a83b8fea563e8210de.mesh"]
+
+source_file="res://Buildings/Staircase.obj"
+dest_files=["res://.godot/imported/Staircase.obj-07fccf9db3a2d3a83b8fea563e8210de.mesh", "res://.godot/imported/Staircase.obj-07fccf9db3a2d3a83b8fea563e8210de.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

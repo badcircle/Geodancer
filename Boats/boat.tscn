@@ -1,0 +1,120 @@
+[gd_scene load_steps=14 format=3 uid="uid://xwdeol55wb4g"]
+
+[ext_resource type="ArrayMesh" uid="uid://dyledveepyj78" path="res://Boats/Boat.obj" id="1_d5x8q"]
+[ext_resource type="Script" path="res://Boats/boat.gd" id="2_uo5ic"]
+[ext_resource type="Shader" path="res://Boats/boat.gdshader" id="3_g4wim"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_opyli"]
+radius = 1.12536
+height = 6.31883
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ueja"]
+render_priority = 99
+depth_draw_mode = 1
+specular_mode = 1
+albedo_color = Color(0.254902, 0.137255, 0.0235294, 1)
+refraction_enabled = true
+refraction_scale = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h1lw7"]
+render_priority = 99
+albedo_color = Color(0.337255, 0.188235, 0.054902, 1)
+refraction_enabled = true
+refraction_scale = 0.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mr5v1"]
+size = Vector3(0.316588, 0.033051, 0.619271)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c5u2l"]
+size = Vector3(0.316588, 0.0981053, 0.0359333)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7u0mk"]
+size = Vector3(0.316588, 0.0981053, 0.0359333)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_84up5"]
+size = Vector3(0.0252331, 0.0981053, 0.536752)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kdqdr"]
+size = Vector3(0.0252331, 0.0981053, 0.536752)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7wp0e"]
+render_priority = 0
+shader = ExtResource("3_g4wim")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_em6bn"]
+render_priority = 0
+shader = ExtResource("3_g4wim")
+
+[node name="Boat" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 2
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+mass = 300.0
+linear_damp = 1.314
+angular_damp = 1.314
+script = ExtResource("2_uo5ic")
+
+[node name="Floaters" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.196293, 0)
+
+[node name="fs" type="Node3D" parent="Floaters"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.624, 0, 2.952)
+
+[node name="fp" type="Node3D" parent="Floaters"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.624, 0, 2.952)
+
+[node name="rs" type="Node3D" parent="Floaters"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.624, 0, -2.952)
+
+[node name="rp" type="Node3D" parent="Floaters"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.62374, 0, -2.95172)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.672127, 0)
+shape = SubResource("CapsuleShape3D_opyli")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Model" type="Node3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="Boat" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = ExtResource("1_d5x8q")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_8ueja")
+surface_material_override/1 = SubResource("StandardMaterial3D_h1lw7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Model/Boat"]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Model/Boat/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0434277, 0)
+shape = SubResource("BoxShape3D_mr5v1")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Model/Boat/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0997548, -0.290076)
+shape = SubResource("BoxShape3D_c5u2l")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Model/Boat/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0997548, 0.197619)
+shape = SubResource("BoxShape3D_7u0mk")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Model/Boat/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.133281, 0.0997548, -0.0102233)
+shape = SubResource("BoxShape3D_84up5")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="Model/Boat/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.133, 0.1, -0.01)
+shape = SubResource("BoxShape3D_kdqdr")
+
+[node name="Boat2" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = ExtResource("1_d5x8q")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_7wp0e")
+surface_material_override/1 = SubResource("ShaderMaterial_em6bn")
+
+[connection signal="vehicle_entered" from="." to="." method="_on_vehicle_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

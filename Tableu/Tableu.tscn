@@ -1,0 +1,500 @@
+[gd_scene load_steps=10 format=3 uid="uid://dx217bto207yg"]
+
+[ext_resource type="Script" path="res://Tableu/Tableu.gd" id="1_6vwtq"]
+[ext_resource type="FontFile" uid="uid://cod1hjexjva8o" path="res://Fonts/Ac437_IBM_VGA_9x16.ttf" id="2_k4284"]
+
+[sub_resource type="SystemFont" id="SystemFont_b6342"]
+font_names = PackedStringArray("Comic Sans MS", "Sans-Serif")
+font_weight = 300
+hinting = 0
+
+[sub_resource type="Theme" id="Theme_p7mu4"]
+default_font = SubResource("SystemFont_b6342")
+
+[sub_resource type="Gradient" id="Gradient_ipfqh"]
+colors = PackedColorArray(0.721569, 0, 0, 1, 0.209353, 0.842185, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_sjcki"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ha2mq"]
+width = 100
+height = 100
+color_ramp = SubResource("Gradient_ipfqh")
+noise = SubResource("FastNoiseLite_sjcki")
+
+[sub_resource type="MeshTexture" id="MeshTexture_fycdr"]
+
+[sub_resource type="SystemFont" id="SystemFont_bcwlw"]
+
+[node name="Parchment" type="Node2D"]
+script = ExtResource("1_6vwtq")
+dice = NodePath("Tableu/Dice")
+mothers_daughters = NodePath("Tableu/Figures/MothersDaughters")
+nieces = NodePath("Tableu/Figures/Nieces")
+witnesses = NodePath("Tableu/Figures/Witnesses")
+final = NodePath("Tableu/Figures/Final")
+
+[node name="mother1" type="RichTextLabel" parent="."]
+offset_left = 300.0
+offset_top = 500.0
+offset_right = 547.0
+offset_bottom = 550.0
+
+[node name="Tableu" type="Control" parent="."]
+custom_minimum_size = Vector2(800, 550)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 300.0
+offset_top = 50.0
+offset_right = 1100.0
+offset_bottom = 600.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Figures" type="VBoxContainer" parent="Tableu"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+offset_right = 800.0
+offset_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_p7mu4")
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="MothersDaughters" type="HBoxContainer" parent="Tableu/Figures"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Daughter4" type="TextureRect" parent="Tableu/Figures/MothersDaughters"]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_ha2mq")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Tableu/Figures/MothersDaughters/Daughter4"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 53.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_k4284")
+theme_override_font_sizes/font_size = 14
+text = "Daughter 4"
+
+[node name="Daughter3" type="TextureRect" parent="Tableu/Figures/MothersDaughters"]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_ha2mq")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Tableu/Figures/MothersDaughters/Daughter3"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 53.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_k4284")
+theme_override_font_sizes/font_size = 14
+text = "Daughter 3"
+
+[node name="Daughter2" type="TextureRect" parent="Tableu/Figures/MothersDaughters"]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_ha2mq")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Tableu/Figures/MothersDaughters/Daughter2"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 53.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_k4284")
+theme_override_font_sizes/font_size = 14
+text = "Daughter 2"
+
+[node name="Daughter1" type="TextureRect" parent="Tableu/Figures/MothersDaughters"]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_ha2mq")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Tableu/Figures/MothersDaughters/Daughter1"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 53.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_k4284")
+theme_override_font_sizes/font_size = 14
+text = "Daughter 1"
+
+[node name="Mother4" type="TextureRect" parent="Tableu/Figures/MothersDaughters"]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_ha2mq")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Tableu/Figures/MothersDaughters/Mother4"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 53.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_k4284")
+theme_override_font_sizes/font_size = 14
+text = "Mother 4"
+
+[node name="Mother3" type="TextureRect" parent="Tableu/Figures/MothersDaughters"]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_ha2mq")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Tableu/Figures/MothersDaughters/Mother3"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 53.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_k4284")
+theme_override_font_sizes/font_size = 14
+text = "Mother 3"
+
+[node name="Mother2" type="TextureRect" parent="Tableu/Figures/MothersDaughters"]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_ha2mq")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Tableu/Figures/MothersDaughters/Mother2"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 53.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_k4284")
+theme_override_font_sizes/font_size = 14
+text = "Mother 2"
+
+[node name="Mother1" type="TextureRect" parent="Tableu/Figures/MothersDaughters"]
+clip_contents = true
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_ha2mq")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Tableu/Figures/MothersDaughters/Mother1"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 53.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_k4284")
+theme_override_font_sizes/font_size = 14
+text = "Mother 1"
+
+[node name="Nieces" type="HBoxContainer" parent="Tableu/Figures"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Niece4" type="TextureRect" parent="Tableu/Figures/Nieces"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_ha2mq")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Tableu/Figures/Nieces/Niece4"]
+z_index = 1
+layout_mode = 0
+offset_left = 55.0
+offset_top = 5.0
+offset_right = 103.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_k4284")
+theme_override_font_sizes/font_size = 14
+text = "Niece 4"
+
+[node name="Niece3" type="TextureRect" parent="Tableu/Figures/Nieces"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_ha2mq")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Tableu/Figures/Nieces/Niece3"]
+z_index = 1
+layout_mode = 0
+offset_left = 55.0
+offset_top = 5.0
+offset_right = 103.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_k4284")
+theme_override_font_sizes/font_size = 14
+text = "Niece 3"
+
+[node name="Niece2" type="TextureRect" parent="Tableu/Figures/Nieces"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_ha2mq")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Tableu/Figures/Nieces/Niece2"]
+z_index = 1
+layout_mode = 0
+offset_left = 55.0
+offset_top = 5.0
+offset_right = 103.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_k4284")
+theme_override_font_sizes/font_size = 14
+text = "Niece 2"
+
+[node name="Niece1" type="TextureRect" parent="Tableu/Figures/Nieces"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_ha2mq")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Tableu/Figures/Nieces/Niece1"]
+z_index = 1
+layout_mode = 0
+offset_left = 55.0
+offset_top = 5.0
+offset_right = 103.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_k4284")
+theme_override_font_sizes/font_size = 14
+text = "Niece 1"
+
+[node name="Witnesses" type="HBoxContainer" parent="Tableu/Figures"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Left" type="TextureRect" parent="Tableu/Figures/Witnesses"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_ha2mq")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Tableu/Figures/Witnesses/Left"]
+z_index = 1
+layout_mode = 0
+offset_left = 155.0
+offset_top = 5.0
+offset_right = 226.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_k4284")
+theme_override_font_sizes/font_size = 14
+text = "Left Witness"
+
+[node name="Right" type="TextureRect" parent="Tableu/Figures/Witnesses"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_ha2mq")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Tableu/Figures/Witnesses/Right"]
+z_index = 1
+layout_mode = 0
+offset_left = 155.0
+offset_top = 5.0
+offset_right = 226.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_k4284")
+theme_override_font_sizes/font_size = 14
+text = "Right Witness"
+
+[node name="Final" type="HBoxContainer" parent="Tableu/Figures"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="Judge" type="TextureRect" parent="Tableu/Figures/Final"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_ha2mq")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Tableu/Figures/Final/Judge"]
+z_index = 1
+layout_mode = 0
+offset_left = 155.0
+offset_top = 5.0
+offset_right = 232.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_k4284")
+theme_override_font_sizes/font_size = 14
+text = "Judge"
+
+[node name="Spacer" type="TextureRect" parent="Tableu/Figures/Final"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+texture = SubResource("MeshTexture_fycdr")
+flip_h = true
+flip_v = true
+
+[node name="Sentence" type="TextureRect" parent="Tableu/Figures/Final"]
+layout_mode = 2
+texture = SubResource("NoiseTexture2D_ha2mq")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Tableu/Figures/Final/Sentence"]
+z_index = 1
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 82.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_k4284")
+theme_override_font_sizes/font_size = 14
+text = "Sentence"
+
+[node name="Dice" type="HBoxContainer" parent="Tableu"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 0
+offset_top = 500.0
+offset_right = 800.0
+offset_bottom = 550.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="die1" type="Label" parent="Tableu/Dice"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_bcwlw")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="die2" type="Label" parent="Tableu/Dice"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_bcwlw")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="die3" type="Label" parent="Tableu/Dice"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_bcwlw")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="die4" type="Label" parent="Tableu/Dice"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_bcwlw")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="die5" type="Label" parent="Tableu/Dice"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_bcwlw")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="die6" type="Label" parent="Tableu/Dice"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_bcwlw")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="die7" type="Label" parent="Tableu/Dice"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_bcwlw")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="die8" type="Label" parent="Tableu/Dice"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_bcwlw")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="die9" type="Label" parent="Tableu/Dice"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_bcwlw")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="die10" type="Label" parent="Tableu/Dice"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_bcwlw")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="die11" type="Label" parent="Tableu/Dice"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_bcwlw")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="die12" type="Label" parent="Tableu/Dice"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_bcwlw")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="die13" type="Label" parent="Tableu/Dice"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_bcwlw")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="die14" type="Label" parent="Tableu/Dice"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_bcwlw")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="die15" type="Label" parent="Tableu/Dice"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_bcwlw")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="die16" type="Label" parent="Tableu/Dice"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_bcwlw")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Info" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 250.0
+offset_bottom = 600.0

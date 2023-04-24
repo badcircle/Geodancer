@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhe34p27siqxm"]
+
+[ext_resource type="Script" path="res://World/Terrain/CharacterBody3D.gd" id="1_li1h0"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lohtl"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_1ydya"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 200.0
+dof_blur_near_enabled = true
+dof_blur_near_distance = 1.0
+
+[node name="Viewer" type="CharacterBody3D"]
+script = ExtResource("1_li1h0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_lohtl")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.949639, 0.313346, 0, -0.313346, 0.949639, 0, 2.46091, 2.62571)
+attributes = SubResource("CameraAttributesPractical_1ydya")
+far = 801.0

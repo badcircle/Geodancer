@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://ikvr62o2hk52"]
+
+[ext_resource type="ArrayMesh" uid="uid://bp5ogr88nuj6n" path="res://Buildings/4Story_Wide_2Doors_Roof.obj" id="1_3dmft"]
+[ext_resource type="Texture2D" uid="uid://vqk35kt5nxbc" path="res://Buildings/Texture_Light.png" id="2_rwj21"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0d18n"]
+albedo_texture = ExtResource("2_rwj21")
+
+[node name="Building" type="Node3D"]
+
+[node name="4StoryWide2DoorsRoof" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+mesh = ExtResource("1_3dmft")
+surface_material_override/0 = SubResource("StandardMaterial3D_0d18n")

@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwl2ov5aiay24"]
+
+[ext_resource type="Shader" uid="uid://dagb0a2i84f5n" path="res://World/pixel.tres" id="1_x72kq"]
+[ext_resource type="Texture2D" uid="uid://qb3q001edku0" path="res://World/transparent.png" id="2_yl8wm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fed8d"]
+shader = ExtResource("1_x72kq")
+shader_parameter/pixelization = 1024.0
+
+[node name="Pixelize" type="Sprite2D"]
+material = SubResource("ShaderMaterial_fed8d")
+position = Vector2(960, 540)
+texture = ExtResource("2_yl8wm")

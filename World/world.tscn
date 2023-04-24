@@ -1,0 +1,334 @@
+[gd_scene load_steps=28 format=3 uid="uid://dkalnxc7d00gk"]
+
+[ext_resource type="PackedScene" uid="uid://dbikxxrh3f5hi" path="res://Models/Base/base_scene.tscn" id="1_3qr6t"]
+[ext_resource type="Script" path="res://World/world.gd" id="1_qs11k"]
+[ext_resource type="PackedScene" uid="uid://cwl2ov5aiay24" path="res://World/pixelize.tscn" id="1_w2g3w"]
+[ext_resource type="Script" path="res://World/Origin.gd" id="3_268pe"]
+[ext_resource type="Script" path="res://World/Terrain/generator.gd" id="3_o0gah"]
+[ext_resource type="PackedScene" uid="uid://bo5rdsm57ey5x" path="res://Models/Fish/cardinal_fish.tscn" id="3_s42kr"]
+[ext_resource type="PackedScene" uid="uid://ccrs1ragwys61" path="res://Models/Monk/monk.tscn" id="4_ttbjh"]
+[ext_resource type="PackedScene" uid="uid://dlop1hyeaxrv4" path="res://Models/Ranger/ranger.tscn" id="5_fl0y6"]
+[ext_resource type="FastNoiseLite" uid="uid://ce5aj1qjqni67" path="res://World/Terrain/terrain_maps/archipelago.tres" id="8_ug5vy"]
+[ext_resource type="PackedScene" uid="uid://xwdeol55wb4g" path="res://Boats/boat.tscn" id="11_kwbkr"]
+
+[sub_resource type="Gradient" id="Gradient_w4cfy"]
+colors = PackedColorArray(0, 0, 0.910156, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_03kxn"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_u7vtf"]
+width = 1000
+height = 12
+color_ramp = SubResource("Gradient_w4cfy")
+noise = SubResource("FastNoiseLite_03kxn")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cpbbc"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_56m1d"]
+noise = SubResource("FastNoiseLite_cpbbc")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7e3sd"]
+shading_mode = 2
+diffuse_mode = 3
+specular_mode = 1
+vertex_color_use_as_albedo = true
+emission_texture = SubResource("NoiseTexture2D_u7vtf")
+subsurf_scatter_strength = 1.0
+subsurf_scatter_transmittance_enabled = true
+subsurf_scatter_transmittance_texture = SubResource("NoiseTexture2D_56m1d")
+refraction_scale = 0.0
+proximity_fade_distance = 10.0
+distance_fade_mode = 1
+distance_fade_min_distance = 100.0
+distance_fade_max_distance = 50.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_wl7oj"]
+material = SubResource("StandardMaterial3D_7e3sd")
+size = Vector2(10000, 60)
+
+[sub_resource type="Gradient" id="Gradient_fj7qk"]
+colors = PackedColorArray(0, 0, 0.113725, 1, 1, 0.85098, 0.427451, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wh6ba"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rv8s0"]
+in_3d_space = true
+seamless = true
+color_ramp = SubResource("Gradient_fj7qk")
+noise = SubResource("FastNoiseLite_wh6ba")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_quplw"]
+sky_top_color = Color(0.133333, 0.556863, 0.772549, 1)
+sky_horizon_color = Color(0.670588, 0.498039, 0.219608, 1)
+sky_cover = SubResource("NoiseTexture2D_rv8s0")
+ground_bottom_color = Color(0.054902, 0.160784, 1, 1)
+ground_horizon_color = Color(0.427451, 0.494118, 0.698039, 1)
+
+[sub_resource type="Sky" id="Sky_47tsq"]
+sky_material = SubResource("ProceduralSkyMaterial_quplw")
+process_mode = 2
+
+[sub_resource type="Environment" id="Environment_8jyg3"]
+background_mode = 2
+sky = SubResource("Sky_47tsq")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.4
+reflected_light_source = 2
+tonemap_mode = 2
+volumetric_fog_density = 0.03
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_g2okw"]
+
+[sub_resource type="SystemFont" id="SystemFont_ruhef"]
+
+[sub_resource type="Theme" id="Theme_saqjf"]
+default_font = SubResource("SystemFont_ruhef")
+
+[sub_resource type="Theme" id="Theme_d71gd"]
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_qs11k")
+
+[node name="Pixelize" parent="." instance=ExtResource("1_w2g3w")]
+visible = false
+
+[node name="Origin" type="Node3D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_268pe")
+
+[node name="Terrain" type="Node3D" parent="Origin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.68417e+07, 0)
+script = ExtResource("3_o0gah")
+chunkSize = 599
+terrain_height = 25
+view_distance = 2996
+noise = ExtResource("8_ug5vy")
+
+[node name="Characters" type="Node3D" parent="Origin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.14911, 0)
+
+[node name="CardinalFish" parent="Origin/Characters" instance=ExtResource("3_s42kr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.09296, 27.1147)
+
+[node name="Monk" parent="Origin/Characters" instance=ExtResource("4_ttbjh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.123777, -2.02697, -9.18776)
+
+[node name="Ranger" parent="Origin/Characters" instance=ExtResource("5_fl0y6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.58661, -2.00078, -8.1887)
+
+[node name="Walls" type="Node3D" parent="Origin"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="North" type="MeshInstance3D" parent="Origin/Walls"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -5000)
+mesh = SubResource("PlaneMesh_wl7oj")
+skeleton = NodePath("../..")
+
+[node name="East" type="MeshInstance3D" parent="Origin/Walls"]
+transform = Transform3D(1.31134e-07, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, 1.31134e-07, -7.10543e-15, 5000, 0, 0)
+mesh = SubResource("PlaneMesh_wl7oj")
+skeleton = NodePath("../..")
+
+[node name="South" type="MeshInstance3D" parent="Origin/Walls"]
+transform = Transform3D(-1, -2.62268e-07, 1.14641e-14, 0, -4.37114e-08, -1, 2.62268e-07, -1, 4.37114e-08, 0, 0, 5000)
+mesh = SubResource("PlaneMesh_wl7oj")
+skeleton = NodePath("../..")
+
+[node name="West" type="MeshInstance3D" parent="Origin/Walls"]
+transform = Transform3D(-2.18557e-07, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -2.18557e-07, 1.06581e-14, -5000, 0, 0)
+mesh = SubResource("PlaneMesh_wl7oj")
+skeleton = NodePath("../..")
+
+[node name="Dynamic" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Base" parent="Dynamic" instance=ExtResource("1_3qr6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.086, 0)
+coldColor = Color(0, 0.192157, 1, 1)
+hotColor = Color(0.870588, 0.109804, 0, 1)
+
+[node name="Boat" parent="Dynamic" instance=ExtResource("11_kwbkr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3914.69, 8.60191, 4073.67)
+
+[node name="Env" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8jyg3")
+camera_attributes = SubResource("CameraAttributesPractical_g2okw")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 10, 0)
+light_angular_distance = 0.5
+directional_shadow_mode = 0
+
+[node name="Build" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -285.0
+offset_top = -95.0
+offset_right = 291.0
+offset_bottom = 105.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101961, 0.101961, 0.101961, 0.419608)
+
+[node name="BoxContainer" type="BoxContainer" parent="Build"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -178.0
+offset_top = -125.0
+offset_right = 172.0
+offset_bottom = 115.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_saqjf")
+alignment = 1
+vertical = true
+
+[node name="Label" type="Label" parent="Build/BoxContainer"]
+layout_mode = 2
+text = "Scale"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="Build/BoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = SubResource("Theme_d71gd")
+min_value = 1.0
+max_value = 2.0
+step = 0.1
+value = 1.0
+scrollable = false
+tick_count = 11
+
+[node name="Label2" type="Label" parent="Build/BoxContainer"]
+layout_mode = 2
+text = "Temperature"
+horizontal_alignment = 1
+
+[node name="HSlider2" type="HSlider" parent="Build/BoxContainer" node_paths=PackedStringArray("shortcut_context")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+shortcut_context = NodePath("..")
+max_value = 1.0
+step = 0.1
+value = 0.5
+scrollable = false
+tick_count = 11
+ticks_on_borders = true
+
+[node name="Label3" type="Label" parent="Build/BoxContainer"]
+layout_mode = 2
+text = "Materia"
+horizontal_alignment = 1
+
+[node name="HSlider3" type="HSlider" parent="Build/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 0.5
+max_value = 1.0
+step = 0.05
+value = 0.5
+scrollable = false
+tick_count = 11
+ticks_on_borders = true
+
+[node name="Label" type="Label" parent="."]
+offset_right = 113.0
+offset_bottom = 71.0
+
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3049087" to="Origin/Terrain/@Chunk@3049087" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3049095" to="Origin/Terrain/@Chunk@3049095" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3049096" to="Origin/Terrain/@Chunk@3049096" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3049097" to="Origin/Terrain/@Chunk@3049097" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3051343" to="Origin/Terrain/@Chunk@3051343" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3051344" to="Origin/Terrain/@Chunk@3051344" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052697" to="Origin/Terrain/@Chunk@3052697" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052698" to="Origin/Terrain/@Chunk@3052698" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052701" to="Origin/Terrain/@Chunk@3052701" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052702" to="Origin/Terrain/@Chunk@3052702" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052703" to="Origin/Terrain/@Chunk@3052703" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052704" to="Origin/Terrain/@Chunk@3052704" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052705" to="Origin/Terrain/@Chunk@3052705" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052706" to="Origin/Terrain/@Chunk@3052706" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052707" to="Origin/Terrain/@Chunk@3052707" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052708" to="Origin/Terrain/@Chunk@3052708" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052709" to="Origin/Terrain/@Chunk@3052709" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052711" to="Origin/Terrain/@Chunk@3052711" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052712" to="Origin/Terrain/@Chunk@3052712" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052713" to="Origin/Terrain/@Chunk@3052713" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052714" to="Origin/Terrain/@Chunk@3052714" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052715" to="Origin/Terrain/@Chunk@3052715" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052716" to="Origin/Terrain/@Chunk@3052716" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052717" to="Origin/Terrain/@Chunk@3052717" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052718" to="Origin/Terrain/@Chunk@3052718" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052719" to="Origin/Terrain/@Chunk@3052719" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052721" to="Origin/Terrain/@Chunk@3052721" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052722" to="Origin/Terrain/@Chunk@3052722" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052723" to="Origin/Terrain/@Chunk@3052723" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052724" to="Origin/Terrain/@Chunk@3052724" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052725" to="Origin/Terrain/@Chunk@3052725" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052726" to="Origin/Terrain/@Chunk@3052726" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052727" to="Origin/Terrain/@Chunk@3052727" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052728" to="Origin/Terrain/@Chunk@3052728" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052729" to="Origin/Terrain/@Chunk@3052729" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052730" to="Origin/Terrain/@Chunk@3052730" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052731" to="Origin/Terrain/@Chunk@3052731" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052732" to="Origin/Terrain/@Chunk@3052732" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052733" to="Origin/Terrain/@Chunk@3052733" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052734" to="Origin/Terrain/@Chunk@3052734" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052735" to="Origin/Terrain/@Chunk@3052735" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052736" to="Origin/Terrain/@Chunk@3052736" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052737" to="Origin/Terrain/@Chunk@3052737" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052738" to="Origin/Terrain/@Chunk@3052738" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052739" to="Origin/Terrain/@Chunk@3052739" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052741" to="Origin/Terrain/@Chunk@3052741" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052742" to="Origin/Terrain/@Chunk@3052742" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052743" to="Origin/Terrain/@Chunk@3052743" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052744" to="Origin/Terrain/@Chunk@3052744" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052745" to="Origin/Terrain/@Chunk@3052745" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052746" to="Origin/Terrain/@Chunk@3052746" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052747" to="Origin/Terrain/@Chunk@3052747" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052748" to="Origin/Terrain/@Chunk@3052748" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052749" to="Origin/Terrain/@Chunk@3052749" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052751" to="Origin/Terrain/@Chunk@3052751" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052752" to="Origin/Terrain/@Chunk@3052752" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052753" to="Origin/Terrain/@Chunk@3052753" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052754" to="Origin/Terrain/@Chunk@3052754" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052755" to="Origin/Terrain/@Chunk@3052755" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052756" to="Origin/Terrain/@Chunk@3052756" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052757" to="Origin/Terrain/@Chunk@3052757" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052758" to="Origin/Terrain/@Chunk@3052758" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052759" to="Origin/Terrain/@Chunk@3052759" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052761" to="Origin/Terrain/@Chunk@3052761" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052762" to="Origin/Terrain/@Chunk@3052762" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052763" to="Origin/Terrain/@Chunk@3052763" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052764" to="Origin/Terrain/@Chunk@3052764" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052765" to="Origin/Terrain/@Chunk@3052765" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052766" to="Origin/Terrain/@Chunk@3052766" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052767" to="Origin/Terrain/@Chunk@3052767" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052768" to="Origin/Terrain/@Chunk@3052768" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052769" to="Origin/Terrain/@Chunk@3052769" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052772" to="Origin/Terrain/@Chunk@3052772" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052773" to="Origin/Terrain/@Chunk@3052773" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052774" to="Origin/Terrain/@Chunk@3052774" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052775" to="Origin/Terrain/@Chunk@3052775" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052776" to="Origin/Terrain/@Chunk@3052776" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052777" to="Origin/Terrain/@Chunk@3052777" method="_on_collision_created" flags=18]
+[connection signal="collision_created" from="Origin/Terrain/@Chunk@3052778" to="Origin/Terrain/@Chunk@3052778" method="_on_collision_created" flags=18]
+[connection signal="value_changed" from="Build/BoxContainer/HSlider" to="Dynamic/Base" method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="Build/BoxContainer/HSlider2" to="Dynamic/Base" method="_on_h_slider_2_value_changed"]
+[connection signal="value_changed" from="Build/BoxContainer/HSlider3" to="Dynamic/Base" method="_on_h_slider_3_value_changed"]

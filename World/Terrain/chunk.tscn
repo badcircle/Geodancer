@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://ca0x4mrwaebc"]
+
+[ext_resource type="Script" path="res://World/Terrain/chunk.gd" id="1_awsqe"]
+[ext_resource type="Material" uid="uid://b5uu4noxhhqdm" path="res://World/Terrain/Terrain_Mat.tres" id="1_cu204"]
+[ext_resource type="PackedScene" uid="uid://co6tiulegnxs6" path="res://World/Terrain/water.tscn" id="3_0h1ed"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ri15v"]
+
+[node name="Chunk" type="MeshInstance3D"]
+material_override = ExtResource("1_cu204")
+lod_bias = 2.0
+mesh = SubResource("ArrayMesh_ri15v")
+script = ExtResource("1_awsqe")
+Terrain_Size = 599
+resolution = 4
+
+[node name="Water" parent="." instance=ExtResource("3_0h1ed")]
+
+[connection signal="collision_created" from="." to="." method="_on_collision_created"]

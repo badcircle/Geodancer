@@ -1,0 +1,85 @@
+[gd_scene load_steps=11 format=3 uid="uid://co6tiulegnxs6"]
+
+[ext_resource type="Shader" path="res://World/Terrain/water.gdshader" id="1_ctiwn"]
+
+[sub_resource type="Gradient" id="Gradient_27qt4"]
+colors = PackedColorArray(0.0277347, 0, 0.714844, 1, 0.191567, 0.340881, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rdxtx"]
+seed = 4
+frequency = 0.003
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rq8vb"]
+in_3d_space = true
+seamless = true
+seamless_blend_skirt = 0.25
+color_ramp = SubResource("Gradient_27qt4")
+noise = SubResource("FastNoiseLite_rdxtx")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_y1ckw"]
+in_3d_space = true
+seamless = true
+seamless_blend_skirt = 0.25
+color_ramp = SubResource("Gradient_27qt4")
+noise = SubResource("FastNoiseLite_rdxtx")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7s7rp"]
+noise_type = 5
+seed = 3
+frequency = 0.015
+fractal_octaves = 3
+fractal_lacunarity = 0.05
+fractal_gain = 1.0
+fractal_weighted_strength = 0.01
+domain_warp_enabled = true
+domain_warp_amplitude = 20.0
+domain_warp_frequency = 0.01
+domain_warp_fractal_octaves = 3
+domain_warp_fractal_lacunarity = 4.0
+domain_warp_fractal_gain = 0.05
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3w0tm"]
+invert = true
+in_3d_space = true
+seamless = true
+seamless_blend_skirt = 0.25
+as_normal_map = true
+bump_strength = 4.0
+noise = SubResource("FastNoiseLite_7s7rp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_as4ti"]
+render_priority = 0
+shader = ExtResource("1_ctiwn")
+shader_parameter/speed = 0.00200005
+shader_parameter/color = Color(0, 0.223529, 0.945098, 1)
+shader_parameter/edge_color = Color(0, 0.223529, 0.945098, 0.745098)
+shader_parameter/edge_scale = 0.01
+shader_parameter/near = 0.1
+shader_parameter/far = 100.0
+shader_parameter/wave_strengh = Vector2(0.162, 0.314)
+shader_parameter/wave_frequency = Vector2(1, 2)
+shader_parameter/time_factor = Vector2(1, 1.314)
+shader_parameter/noise1 = SubResource("NoiseTexture2D_rq8vb")
+shader_parameter/noise2 = SubResource("NoiseTexture2D_y1ckw")
+shader_parameter/normalmap = SubResource("NoiseTexture2D_3w0tm")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_v21s4"]
+material = SubResource("ShaderMaterial_as4ti")
+size = Vector2(601, 601)
+subdivide_width = 100
+subdivide_depth = 100
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ocmw1"]
+size = Vector3(601, 1, 601)
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.55, 0)
+layers = 32
+mesh = SubResource("PlaneMesh_v21s4")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_ocmw1")

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://drqitav0colnj"
+path="res://.godot/imported/Stairs_Roof.obj-2f069bf75892a843ab0ad65442eb35fa.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Stairs_Roof.obj-2f069bf75892a843ab0ad65442eb35fa.mesh"]
+
+source_file="res://Buildings/Stairs_Roof.obj"
+dest_files=["res://.godot/imported/Stairs_Roof.obj-2f069bf75892a843ab0ad65442eb35fa.mesh", "res://.godot/imported/Stairs_Roof.obj-2f069bf75892a843ab0ad65442eb35fa.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
